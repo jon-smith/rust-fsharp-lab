@@ -1,0 +1,65 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022, macos-14]
+        include:
+          - os: macos-14
+            compiler: clang
+          - os: windows-2022
+            compiler: msvc-x64
+          - os: ubuntu-24.04
+            compiler: gcc
+
+    runs-on: ${{ matrix.os }}
+
+    name: Build ${{ matrix.os }} ${{ matrix.compiler }}
+
+    env:
+      SQLX_OFFLINE: true
+      preset: ${{ matrix.compiler }}-release
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure VS Toolchain (Windows)
+        if: matrix.os == 'windows-2022'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Cache dependencies
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: rust-postgres -> target
+
+      - name: Build Rust code alone
+        run: cargo build --release --locked
+        working-directory: ./rust
+
+      - name: Install sqlx-cli
+        run: cargo install sqlx-cli --no-default-features --features postgres
+
+      #    - name: Remove .env file so we don't try connect to the DB
+      #     run: rm -f ./rust/.env
+      #      shell: bash
+
+      - name: Check DB query metadata
+        run: cargo sqlx prepare --check --workspace
+        working-directory: ./rust
+
+      - name: Lint Rust code
+        run: cargo clippy --release --locked --no-deps -- -D warnings
+        working-directory: ./rust
+        # Only run clippy on macOS for pull requests (save build time)
+        if: github.event_name == 'pull_request' && matrix.os == 'macos-14'
