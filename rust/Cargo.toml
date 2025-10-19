@@ -3,6 +3,6 @@
 resolver = "2"
 
 members = [
+    "sqlx_lib",
     "rust_exe",
-    "sqlx_lib"
 ]
