@@ -1,12 +1,14 @@
 use dotenvy::dotenv;
+use serde::{Deserialize, Serialize};
 use serde_json::json;
 use sqlx::postgres::PgPool;
 use sqlx::postgres::PgPoolOptions;
-use sqlx::types::chrono;
 use sqlx::types::Json;
+use sqlx::types::chrono;
 use std::env;
 use tokio::runtime::Runtime;
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct RowData {
     pub id: i32,
     pub info: String,
@@ -16,18 +18,9 @@ pub struct RowData {
 
 pub use sqlx::Error;
 
-pub async fn read_all_rows_async() -> Result<Vec<RowData>, sqlx::Error> {
-    dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
-    let pool = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&database_url)
-        .await?;
-
+pub async fn read_all_rows(pool: &PgPool) -> Result<Vec<RowData>, sqlx::Error> {
     let rows = sqlx::query_as!(RowData, "SELECT * FROM datatable")
-        .fetch_all(&pool)
+        .fetch_all(pool)
         .await?;
 
     Ok(rows)
@@ -69,6 +62,19 @@ pub async fn clear_table_and_add_single_row_async() -> Result<i32, sqlx::Error> 
     Ok(rec.id)
 }
 
-pub fn read_all_rows() -> Result<Vec<RowData>, sqlx::Error> {
+pub async fn read_all_rows_async() -> Result<Vec<RowData>, sqlx::Error> {
+    dotenv().ok();
+
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await?;
+
+    read_all_rows(&pool).await
+}
+
+pub fn read_all_rows_sync() -> Result<Vec<RowData>, sqlx::Error> {
     Runtime::new().unwrap().block_on(read_all_rows_async())
 }

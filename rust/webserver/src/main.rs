@@ -1,6 +1,12 @@
-use axum::{Router, extract::State, http::StatusCode, routing::get};
+use axum::{
+    Router,
+    extract::{Json, State},
+    http::StatusCode,
+    routing::get,
+};
 use dotenvy::dotenv;
 use sqlx::PgPool;
+use sqlx_lib::{RowData, read_all_rows};
 use tokio::net::TcpListener;
 
 fn internal_error<E>(err: E) -> (StatusCode, String)
@@ -17,6 +23,14 @@ async fn health_check(State(pool): State<PgPool>) -> Result<String, (StatusCode,
         .map_err(internal_error)
 }
 
+async fn get_all_data(
+    State(pool): State<PgPool>,
+) -> Result<Json<Vec<RowData>>, (StatusCode, String)> {
+    let rows = read_all_rows(&pool).await.map_err(internal_error)?;
+
+    Ok(Json(rows))
+}
+
 #[tokio::main]
 async fn main() {
     // Load environment variables from .env file if we have it
@@ -31,6 +45,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(|| async { "🦀🐱🤡" }))
         .route("/health", get(health_check))
+        .route("/all", get(get_all_data))
         .with_state(pool);
 
     // todo, remove unwraps and handle errors properly
