@@ -4,5 +4,6 @@ resolver = "2"
 
 members = [
     "sqlx_lib",
+    "webserver",
     "rust_exe",
 ]
