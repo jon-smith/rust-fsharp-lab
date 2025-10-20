@@ -1,0 +1,12 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "TRUNCATE datatable",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": []
+  },
+  "hash": "76362b2aa21fe8a3add00ef8dd86fa186b5e7eefb382b638fee2287a9062a410"
+}

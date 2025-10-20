@@ -1,0 +1,8 @@
+[package]
+name = "rust_exe"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sqlx_lib = { path = "../sqlx_lib" }
+tokio = { version = "1.40.0", features = [ "rt-multi-thread", "macros"] }
