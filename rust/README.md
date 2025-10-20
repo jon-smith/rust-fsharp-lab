@@ -4,11 +4,11 @@ The aim of this project is to test a number of things using Rust:
 
 ### Complete ✅
 
+- Rust webserver using Axum
 - Compile-time checked SQL statements for a PostgreSQL database, using [`sqlx`](https://github.com/launchbadge/sqlx)
 
 ### Todo 🔮
 
-- Rust webserver using Axum
 - OpenAPI spec generation using [`utoipa`](https://github.com/juhaku/utoipa)
 - Scalar API client
 
