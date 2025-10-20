@@ -42,4 +42,12 @@ sqlx db create
 
 If the database structure changes or we add new queries in code, the query metadata will need to be updated by running `cargo sqlx prepare --workspace`. The build uses the cached queries in the `.sqlx`folder, this can be switched off using the `SQLX_OFFLINE`variable in the `.env`file.
 
-`cargo build` to build the lib and exe, `cargo run` to run the exe (this requires a running database will clear the database table and add a single row back in).
+`cargo build` to build all projects.
+
+`cargo run -p webserver` to run the webserver. This can be tested locally using the available endpoints, for example:
+
+- [/](localhost:3000)
+- [/all](localhost:3000/all)
+- [/health](localhost:300/health)
+
+`cargo run -p rust_exe` to run an executable that will clear the database table and add a single row back in.
