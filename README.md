@@ -6,9 +6,12 @@ Playing around with rust and F# web-servers. Specifically testing utopia in rust
 
 ## Contents
 
-- [`rust/`](rust/) Rust webserver using axum, postgres and sqlx
+### [`rust/`](rust/)
+
+- Rust webserver built with axum
+- Postgres database, using sqlx for compile-time checked queries
+- OpenAPI spec generation using utoipa, with a Scalar page
 
 ## Todo 🔮
 
-- OpenAPI spec generation using utoipa, with API client page
 - F# webserver
