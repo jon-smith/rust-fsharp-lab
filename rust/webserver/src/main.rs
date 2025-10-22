@@ -30,7 +30,15 @@ async fn get_default() -> String {
     "🦀🐱🤡".to_string()
 }
 
-async fn health_check(State(pool): State<PgPool>) -> Result<String, (StatusCode, String)> {
+#[utoipa::path(
+        get,
+        path = "/health",
+        responses(
+            (status = 200, description = "Returns a string from the database to confirm availability", body = String),
+            (status = 500, description = "Internal server error", body = String),
+        ),
+    )]
+async fn get_health_check(State(pool): State<PgPool>) -> Result<String, (StatusCode, String)> {
     sqlx::query_scalar("select 'db says: i am health ⚕️'")
         .fetch_one(&pool)
         .await
@@ -68,7 +76,7 @@ async fn main() {
 
     let app_router = OpenApiRouter::new()
         .routes(routes!(get_default))
-        .route("/health", get(health_check))
+        .routes(routes!(get_health_check))
         .route("/all", get(get_all_data))
         .with_state(pool);
 
