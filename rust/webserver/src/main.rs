@@ -1,7 +1,6 @@
 use axum::{
     extract::{Json, State},
     http::StatusCode,
-    routing::get,
 };
 use dotenvy::dotenv;
 use sqlx::PgPool;
@@ -45,6 +44,14 @@ async fn get_health_check(State(pool): State<PgPool>) -> Result<String, (StatusC
         .map_err(internal_error)
 }
 
+#[utoipa::path(
+        get,
+        path = "/all",
+        responses(
+            (status = 200, description = "Returns all rows from the database", body = Vec<RowData>),
+            (status = 500, description = "Internal server error", body = String),
+        ),
+    )]
 async fn get_all_data(
     State(pool): State<PgPool>,
 ) -> Result<Json<Vec<RowData>>, (StatusCode, String)> {
@@ -77,7 +84,7 @@ async fn main() {
     let app_router = OpenApiRouter::new()
         .routes(routes!(get_default))
         .routes(routes!(get_health_check))
-        .route("/all", get(get_all_data))
+        .routes(routes!(get_all_data))
         .with_state(pool);
 
     let (router, api) = OpenApiRouter::with_openapi(ApiDoc::openapi())
