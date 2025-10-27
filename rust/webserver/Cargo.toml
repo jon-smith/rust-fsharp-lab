@@ -9,3 +9,6 @@ tokio = { version = "1.40.0", features = [ "rt-multi-thread", "macros"] }
 axum = "0.8"
 sqlx = "0.8"
 dotenvy = "0.15"
+utoipa = "5"
+utoipa-axum = "0.2"
+utoipa-scalar = { version = "0.3", features = ["axum"] }

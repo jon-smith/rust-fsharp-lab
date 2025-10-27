@@ -6,11 +6,13 @@ The aim of this project is to test a number of things using Rust:
 
 - Rust webserver using Axum
 - Compile-time checked SQL statements for a PostgreSQL database, using [`sqlx`](https://github.com/launchbadge/sqlx)
+- OpenAPI spec generation using [`utoipa`](https://github.com/juhaku/utoipa)
+- Scalar API client
 
 ### Todo 🔮
 
-- OpenAPI spec generation using [`utoipa`](https://github.com/juhaku/utoipa)
-- Scalar API client
+- More endpoints
+- More interesting tables
 
 ## Setup
 
@@ -49,5 +51,7 @@ If the database structure changes or we add new queries in code, the query metad
 - [/](localhost:3000)
 - [/all](localhost:3000/all)
 - [/health](localhost:300/health)
+
+A scalar page is provided at [/scalar](localhost:3000/scalar).
 
 `cargo run -p rust_exe` to run an executable that will clear the database table and add a single row back in.
