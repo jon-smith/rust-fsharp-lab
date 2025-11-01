@@ -33,3 +33,4 @@ obj/
 *.log
 .idea/
 Thumbs.db
+.fake
