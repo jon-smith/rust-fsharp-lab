@@ -63,3 +63,35 @@ jobs:
         working-directory: ./rust
         # Only run clippy on macOS for pull requests (save build time)
         if: github.event_name == 'pull_request' && matrix.os == 'macos-14'
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
+
+      - name: Restore .NET dependencies
+        run: dotnet restore --locked-mode
+        working-directory: ./fsharp
+
+      - name: Restore .NET tools
+        run: dotnet tool restore || true
+        working-directory: ./fsharp
+
+      - name: Build F# project (Release)
+        run: dotnet build --configuration Release --no-restore
+        working-directory: ./fsharp
+
+      - name: Test F# project
+        run: dotnet test --configuration Release --no-build
+        working-directory: ./fsharp
+        if: false # Tests are not implemented yet
+
+      - name: Check F# formatting
+        run: dotnet fantomas . --check
+        working-directory: ./fsharp
+
+      - name: Lint F#
+        run: dotnet fsharplint lint .
+        working-directory: ./fsharp

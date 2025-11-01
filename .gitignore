@@ -21,7 +21,6 @@ obj/
 *.user
 *.vs/
 *.vscode/
-*.lock.json
 *.nuget/
 *.nupkg
 *.snupkg
@@ -33,3 +32,4 @@ obj/
 *.log
 .idea/
 Thumbs.db
+.fake
