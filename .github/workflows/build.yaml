@@ -55,10 +55,8 @@ jobs:
         shell: bash
 
       - name: Check DB query metadata
-        run: cargo sqlx prepare --check --workspace
+        run: cargo sqlx prepare --check --workspace -- --release --locked
         working-directory: ./rust
-        # Only check DB queries on macOS for pull requests (save build time)
-        if: github.event_name == 'pull_request' && matrix.os == 'macos-14'
 
       - name: Lint Rust code
         run: cargo clippy --release --locked --no-deps -- -D warnings
