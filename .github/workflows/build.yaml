@@ -86,7 +86,7 @@ jobs:
       - name: Test F# project
         run: dotnet test --configuration Release --no-build
         working-directory: ./fsharp
-        skip: true # Tests are not implemented yet
+        if: false # Tests are not implemented yet
 
       - name: Check F# formatting
         run: dotnet fantomas . --check
