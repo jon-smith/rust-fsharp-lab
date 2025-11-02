@@ -1,6 +1,6 @@
 # F# Project
 
-The aim of this project is to explore F# features and .NET integration.
+The aim of this project is to explore F#, the Oxpecker library and OpenAPI type providers.
 
 ### Complete ✅
 
