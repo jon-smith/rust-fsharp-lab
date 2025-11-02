@@ -14,7 +14,7 @@ Playing around with rust and F# web-servers. Specifically testing utopia in rust
 
 ### [`fsharp/`](fsharp/)
 
-- Hello world F# project
+- Hello world F# webserver, build using [Oxpecker](https://github.com/Lanayx/Oxpecker/tree/main)
 
 ## Todo 🔮
 
