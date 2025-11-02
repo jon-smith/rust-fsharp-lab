@@ -10,7 +10,6 @@ The aim of this project is to explore F#, the Oxpecker library and OpenAPI type 
 
 ### Todo 🔮
 
-- Implement web server
 - Add unit and integration tests
 - Add OpenAPI type provider from the rust OpenAPI docs
 - Add GraphQL endpoints and/or MCP server
