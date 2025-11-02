@@ -6,6 +6,7 @@ The aim of this project is to explore F# features and .NET integration.
 
 - F# project setup with .NET 9
 - Build and run scripts
+- Basic webserver with hello world at the root
 
 ### Todo 🔮
 
@@ -33,3 +34,5 @@ dotnet fantomas . # format
 dotnet fsharplint lint . # run linter
 dotnet run
 ```
+
+Now you can navigate to [localhost:5000](localhost:5000) to see the message from the server

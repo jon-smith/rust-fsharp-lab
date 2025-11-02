@@ -7,6 +7,45 @@
         "requested": "[9.0.303, )",
         "resolved": "9.0.303",
         "contentHash": "6JlV8aD8qQvcmfoe/PMOxCHXc0uX4lR23u0fAyQtnVQxYULLoTZgwgZHSnRcuUHOvS3wULFWcwdnP1iwslH60g=="
+      },
+      "Oxpecker": {
+        "type": "Direct",
+        "requested": "[1.5.0, )",
+        "resolved": "1.5.0",
+        "contentHash": "kvUBQTZS7q33JJlzPEwG2YndgfcChdi8JL6VR5lQb4Yc608p0/xFmpbWHMb7WajNm2JkbV7o3kdTvNv3XnF2uQ==",
+        "dependencies": {
+          "FSharp.Core": "9.0.300",
+          "Microsoft.IO.RecyclableMemoryStream": "3.0.1",
+          "Oxpecker.ViewEngine": "1.1.0",
+          "TypeShape": "10.0.0"
+        }
+      },
+      "Microsoft.Extensions.ObjectPool": {
+        "type": "Transitive",
+        "resolved": "9.0.0",
+        "contentHash": "UbsU/gYe4nv1DeqMXIVzDfNNek7Sk2kKuAOXL/Y+sLcAR0HwFUqzg1EPiU88jeHNe0g81aPvvHbvHarQr3r9IA=="
+      },
+      "Microsoft.IO.RecyclableMemoryStream": {
+        "type": "Transitive",
+        "resolved": "3.0.1",
+        "contentHash": "s/s20YTVY9r9TPfTrN5g8zPF1YhwxyqO6PxUkrYTGI2B+OGPe9AdajWZrLhFqXIvqIW23fnUE4+ztrUWNU1+9g=="
+      },
+      "Oxpecker.ViewEngine": {
+        "type": "Transitive",
+        "resolved": "1.1.0",
+        "contentHash": "VjdtK+Bwui0nPf/T4wVWhxgGMpyt3hEjaRxtFT3HKdzlr+JbH0C1qd/SxhKsuD90jM9EJObCgPrgBdPj576HVw==",
+        "dependencies": {
+          "FSharp.Core": "9.0.100",
+          "Microsoft.Extensions.ObjectPool": "9.0.0"
+        }
+      },
+      "TypeShape": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "sp/8J8jyB/Ns4HoC73f8BtsAJKw+OZ27D97VgQlBs1taMlzKplKuaxhQ6ErswDVUHej2WgIfm4wLWy/3wxYSFA==",
+        "dependencies": {
+          "FSharp.Core": "4.5.4"
+        }
       }
     }
   }
