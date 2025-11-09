@@ -55,3 +55,9 @@ If the database structure changes or we add new queries in code, the query metad
 A scalar page is provided at [/scalar](localhost:3000/scalar).
 
 `cargo run -p rust_exe` to run an executable that will clear the database table and add a single row back in.
+
+## Test
+
+`cargo test --release`
+
+> The test step outputs the latest OpenAPI doc and compares against the version in source.
