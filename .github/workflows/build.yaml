@@ -66,6 +66,10 @@ jobs:
         # Only run clippy on macOS for pull requests (save build time)
         if: github.event_name == 'pull_request' && matrix.os == 'macos-14'
 
+      - name: Test Rust code
+        run: cargo test --release --locked
+        working-directory: ./rust
+
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
