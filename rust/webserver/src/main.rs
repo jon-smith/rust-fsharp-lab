@@ -1,9 +1,10 @@
 use axum::{
+    Router,
     extract::{Json, State},
     http::StatusCode,
 };
 use dotenvy::dotenv;
-use sqlx::PgPool;
+use sqlx::{PgPool, Pool, Postgres};
 use sqlx_lib::{RowData, read_all_rows};
 use tokio::net::TcpListener;
 
@@ -62,8 +63,7 @@ async fn get_all_data(
 
 const TAG: &str = "rust_webserver";
 
-#[tokio::main]
-async fn main() {
+fn build_router() -> Router<Pool<Postgres>> {
     #[derive(OpenApi)]
     #[openapi(
         tags(
@@ -71,15 +71,6 @@ async fn main() {
         )
     )]
     struct ApiDoc;
-
-    // Load environment variables from .env file if we have it
-    dotenv().ok();
-
-    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
-    let pool = sqlx::PgPool::connect(&database_url)
-        .await
-        .expect("Failed to connect to database");
 
     let app_router = OpenApiRouter::new()
         .routes(routes!(get_default))
@@ -90,9 +81,23 @@ async fn main() {
         .merge(app_router)
         .split_for_parts();
 
-    let router = router
-        .merge(Scalar::with_url("/scalar", api))
-        .with_state(pool);
+    let router = router.merge(Scalar::with_url("/scalar", api));
+
+    router
+}
+
+#[tokio::main]
+async fn main() {
+    // Load environment variables from .env file if we have it
+    dotenv().ok();
+
+    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+
+    let pool = sqlx::PgPool::connect(&database_url)
+        .await
+        .expect("Failed to connect to database");
+
+    let router = build_router().with_state(pool);
 
     // todo, remove unwraps and handle errors properly
     let listener = TcpListener::bind("127.0.0.1:3000").await.unwrap();
