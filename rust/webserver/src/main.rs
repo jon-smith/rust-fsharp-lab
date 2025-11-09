@@ -120,19 +120,35 @@ mod tests {
 
         // Create output directory for OpenAPI docs
         let output_dir = "../openapi";
-        fs::create_dir_all(output_dir).expect("Failed to create output directory");
+        if let Err(e) = fs::create_dir_all(output_dir) {
+            assert!(false, "Failed to create output directory: {}", e);
+        }
 
         // Export OpenAPI spec as JSON
-        let json_spec = api
-            .to_pretty_json()
-            .expect("Failed to serialize OpenAPI spec to JSON");
+        let json_spec = match api.to_pretty_json() {
+            Ok(spec) => spec,
+            Err(e) => {
+                assert!(false, "Failed to serialize OpenAPI spec to JSON: {}", e);
+                return;
+            }
+        };
+
         let json_path = Path::new(output_dir).join("openapi.json");
-        fs::write(&json_path, json_spec).expect("Failed to write OpenAPI JSON file");
+        if let Err(e) = fs::write(&json_path, json_spec) {
+            assert!(false, "Failed to write OpenAPI JSON file: {}", e);
+        }
 
         // Verify file was created and is not empty
-        assert!(json_path.exists());
-        let file_content =
-            fs::read_to_string(&json_path).expect("Failed to read OpenAPI JSON file");
-        assert!(!file_content.is_empty());
+        assert!(json_path.exists(), "OpenAPI JSON file was not created");
+
+        let file_content = match fs::read_to_string(&json_path) {
+            Ok(content) => content,
+            Err(e) => {
+                assert!(false, "Failed to read OpenAPI JSON file: {}", e);
+                return;
+            }
+        };
+
+        assert!(!file_content.is_empty(), "OpenAPI JSON file is empty");
     }
 }
