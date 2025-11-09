@@ -63,7 +63,7 @@ async fn get_all_data(
 
 const TAG: &str = "rust_webserver";
 
-fn build_router() -> Router<Pool<Postgres>> {
+fn build_router() -> (Router<Pool<Postgres>>, utoipa::openapi::OpenApi) {
     #[derive(OpenApi)]
     #[openapi(
         tags(
@@ -77,13 +77,9 @@ fn build_router() -> Router<Pool<Postgres>> {
         .routes(routes!(get_health_check))
         .routes(routes!(get_all_data));
 
-    let (router, api) = OpenApiRouter::with_openapi(ApiDoc::openapi())
+    OpenApiRouter::with_openapi(ApiDoc::openapi())
         .merge(app_router)
-        .split_for_parts();
-
-    let router = router.merge(Scalar::with_url("/scalar", api));
-
-    router
+        .split_for_parts()
 }
 
 #[tokio::main]
@@ -97,7 +93,11 @@ async fn main() {
         .await
         .expect("Failed to connect to database");
 
-    let router = build_router().with_state(pool);
+    let (router, api) = build_router();
+
+    let router = router
+        .merge(Scalar::with_url("/scalar", api))
+        .with_state(pool);
 
     // todo, remove unwraps and handle errors properly
     let listener = TcpListener::bind("127.0.0.1:3000").await.unwrap();
@@ -105,4 +105,34 @@ async fn main() {
     axum::serve(listener, router.into_make_service())
         .await
         .unwrap();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs;
+    use std::path::Path;
+
+    #[test]
+    // This isn't intended as a unit test, but a convenient way to generate the OpenAPI docs for local consumption
+    fn test_build_router_and_export_openapi() {
+        let (_, api) = build_router();
+
+        // Create output directory for OpenAPI docs
+        let output_dir = "../openapi";
+        fs::create_dir_all(output_dir).expect("Failed to create output directory");
+
+        // Export OpenAPI spec as JSON
+        let json_spec = api
+            .to_pretty_json()
+            .expect("Failed to serialize OpenAPI spec to JSON");
+        let json_path = Path::new(output_dir).join("openapi.json");
+        fs::write(&json_path, json_spec).expect("Failed to write OpenAPI JSON file");
+
+        // Verify file was created and is not empty
+        assert!(json_path.exists());
+        let file_content =
+            fs::read_to_string(&json_path).expect("Failed to read OpenAPI JSON file");
+        assert!(!file_content.is_empty());
+    }
 }
