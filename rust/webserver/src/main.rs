@@ -114,7 +114,8 @@ mod tests {
     use std::path::Path;
 
     #[test]
-    // This isn't intended as a unit test, but a convenient way to generate the OpenAPI docs for local consumption
+    // This test will fail if the generated OpenAPI spec does not match the checked-in version
+    // If you intentionally changed the API, replace the openapi.json file with the openapi-tmp.json output
     fn test_build_router_and_export_openapi() {
         let (_, api) = build_router();
 
@@ -133,15 +134,20 @@ mod tests {
             }
         };
 
-        let json_path = Path::new(output_dir).join("openapi.json");
-        if let Err(e) = fs::write(&json_path, json_spec) {
+        let output_json_path = Path::new(output_dir).join("openapi-tmp.json");
+        if let Err(e) = fs::write(&output_json_path, json_spec.clone()) {
             assert!(false, "Failed to write OpenAPI JSON file: {}", e);
         }
 
         // Verify file was created and is not empty
-        assert!(json_path.exists(), "OpenAPI JSON file was not created");
+        assert!(
+            output_json_path.exists(),
+            "OpenAPI JSON file was not created"
+        );
 
-        let file_content = match fs::read_to_string(&json_path) {
+        // Read in the current source file for comparison
+        let input_json_path = Path::new(output_dir).join("openapi.json");
+        let file_content = match fs::read_to_string(&input_json_path) {
             Ok(content) => content,
             Err(e) => {
                 assert!(false, "Failed to read OpenAPI JSON file: {}", e);
@@ -149,6 +155,9 @@ mod tests {
             }
         };
 
-        assert!(!file_content.is_empty(), "OpenAPI JSON file is empty");
+        assert_eq!(
+            file_content, json_spec,
+            "OpenAPI JSON does not match expected content"
+        );
     }
 }
