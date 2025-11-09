@@ -50,7 +50,7 @@ If the database structure changes or we add new queries in code, the query metad
 
 - [/](localhost:3000)
 - [/all](localhost:3000/all)
-- [/health](localhost:300/health)
+- [/health](localhost:3000/health)
 
 A scalar page is provided at [/scalar](localhost:3000/scalar).
 

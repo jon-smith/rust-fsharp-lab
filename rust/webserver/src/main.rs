@@ -84,14 +84,15 @@ async fn main() {
     let app_router = OpenApiRouter::new()
         .routes(routes!(get_default))
         .routes(routes!(get_health_check))
-        .routes(routes!(get_all_data))
-        .with_state(pool);
+        .routes(routes!(get_all_data));
 
     let (router, api) = OpenApiRouter::with_openapi(ApiDoc::openapi())
         .merge(app_router)
         .split_for_parts();
 
-    let router = router.merge(Scalar::with_url("/scalar", api));
+    let router = router
+        .merge(Scalar::with_url("/scalar", api))
+        .with_state(pool);
 
     // todo, remove unwraps and handle errors properly
     let listener = TcpListener::bind("127.0.0.1:3000").await.unwrap();
