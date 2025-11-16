@@ -156,8 +156,15 @@ mod tests {
         };
 
         assert_eq!(
-            file_content, json_spec,
-            "OpenAPI JSON does not match expected content"
+            file_content
+                .parse::<serde_json::Value>()
+                .expect("Failed to parse file_content as JSON"),
+            json_spec
+                .parse::<serde_json::Value>()
+                .expect("Failed to parse json_spec as JSON"),
+            "OpenAPI JSON does not match expected content. 
+            The OpenAPI spec may have changed.
+            If this is expected, the openapi.json should be updated."
         );
     }
 }
