@@ -1,14 +1,17 @@
 [package]
 name = "webserver"
 version = "0.1.0"
-edition="2024"
+edition = "2024"
 
 [dependencies]
 sqlx_lib = { path = "../sqlx_lib" }
-tokio = { version = "1.40.0", features = [ "rt-multi-thread", "macros"] }
+tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros"] }
 axum = "0.8"
 sqlx = "0.8"
 dotenvy = "0.15"
 utoipa = "5"
 utoipa-axum = "0.2"
 utoipa-scalar = { version = "0.3", features = ["axum"] }
+
+[dev-dependencies]
+serde_json = { version = "1.0", features = ["raw_value"] }
