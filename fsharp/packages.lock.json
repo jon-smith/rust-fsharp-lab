@@ -47,6 +47,9 @@
           "FSharp.Core": "4.5.4"
         }
       }
-    }
+    },
+    "net9.0/linux-x64": {},
+    "net9.0/osx-x64": {},
+    "net9.0/win-x64": {}
   }
 }
