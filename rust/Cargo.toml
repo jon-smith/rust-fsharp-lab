@@ -2,8 +2,12 @@
 
 resolver = "2"
 
-members = [
-    "sqlx_lib",
-    "webserver",
-    "rust_exe",
-]
+members = ["sqlx_lib", "webserver", "rust_exe"]
+
+[workspace.lints.clippy]
+pedantic = { level = "deny", priority = -1 }
+missing_errors_doc = "allow"
+assertions_on_constants = "allow"
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"

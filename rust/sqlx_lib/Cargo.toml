@@ -4,13 +4,17 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-sqlx = { version = "0.8", features = [ "runtime-tokio", "postgres", "chrono" ] }
-tokio = { version = "1.40.0", features = [ "rt-multi-thread", "macros"] }
+sqlx = { version = "0.8", features = ["runtime-tokio", "postgres", "chrono"] }
+tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros"] }
 serde = "1.0"
 serde_json = { version = "1.0", features = ["raw_value"] }
 chrono = { version = "0.4", features = ["serde"] }
 dotenvy = "0.15"
 utoipa = { version = "5", features = ["chrono"] }
+thiserror = "2"
 
 [lib]
 crate-type = ["rlib"]
+
+[lints]
+workspace = true
