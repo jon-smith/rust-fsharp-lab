@@ -37,7 +37,7 @@ sqlx db create
 4. Run sql migrations
 
 ```sh
-(cd sqlx_lib && sqlx migrate run)
+sqlx migrate run
 ```
 
 ## Build/Run
