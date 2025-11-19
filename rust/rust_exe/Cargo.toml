@@ -5,4 +5,7 @@ edition = "2024"
 
 [dependencies]
 sqlx_lib = { path = "../sqlx_lib" }
-tokio = { version = "1.40.0", features = [ "rt-multi-thread", "macros"] }
+tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros"] }
+
+[lints]
+workspace = true

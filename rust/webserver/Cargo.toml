@@ -15,3 +15,6 @@ utoipa-scalar = { version = "0.3", features = ["axum"] }
 
 [dev-dependencies]
 serde_json = { version = "1.0", features = ["raw_value"] }
+
+[lints]
+workspace = true
