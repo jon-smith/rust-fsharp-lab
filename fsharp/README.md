@@ -4,7 +4,7 @@ The aim of this project is to explore F#, the Oxpecker library and OpenAPI type 
 
 ### Complete ✅
 
-- F# project setup with .NET 9
+- F# project setup with .NET 10
 - Build and run scripts
 - Basic webserver with hello world at the root
 
@@ -16,7 +16,7 @@ The aim of this project is to explore F#, the Oxpecker library and OpenAPI type 
 
 ## Setup
 
-1. Ensure you have the [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) installed.
+1. Ensure you have the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) installed.
 
 2. Restore project dependencies and tools:
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Oxpecker" Version="1.5.0" />
+    <PackageReference Include="Oxpecker" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,29 +1,29 @@
 {
   "version": 1,
   "dependencies": {
-    "net9.0": {
+    "net10.0": {
       "FSharp.Core": {
         "type": "Direct",
-        "requested": "[9.0.303, )",
-        "resolved": "9.0.303",
-        "contentHash": "6JlV8aD8qQvcmfoe/PMOxCHXc0uX4lR23u0fAyQtnVQxYULLoTZgwgZHSnRcuUHOvS3wULFWcwdnP1iwslH60g=="
+        "requested": "[10.0.100, )",
+        "resolved": "10.0.100",
+        "contentHash": "086+usYoFagObWfl0HhGEOCJumdwYeqWXt7cEi1jUZj0pbUMkAH2IGsJVHTlwpLRyUXvmKxpskso0V3UjYpRQw=="
       },
       "Oxpecker": {
         "type": "Direct",
-        "requested": "[1.5.0, )",
-        "resolved": "1.5.0",
-        "contentHash": "kvUBQTZS7q33JJlzPEwG2YndgfcChdi8JL6VR5lQb4Yc608p0/xFmpbWHMb7WajNm2JkbV7o3kdTvNv3XnF2uQ==",
+        "requested": "[2.0.0, )",
+        "resolved": "2.0.0",
+        "contentHash": "abvcUF/MwzhyL7WXMAAlwGe9w7T9DJDXPCYuu456rXVvUK3sNsvIOuAjDecSvHJ4CWJwa1/RrMNPWowqtZuIRw==",
         "dependencies": {
-          "FSharp.Core": "9.0.300",
+          "FSharp.Core": "10.0.100",
           "Microsoft.IO.RecyclableMemoryStream": "3.0.1",
-          "Oxpecker.ViewEngine": "1.1.0",
+          "Oxpecker.ViewEngine": "2.0.0",
           "TypeShape": "10.0.0"
         }
       },
       "Microsoft.Extensions.ObjectPool": {
         "type": "Transitive",
-        "resolved": "9.0.0",
-        "contentHash": "UbsU/gYe4nv1DeqMXIVzDfNNek7Sk2kKuAOXL/Y+sLcAR0HwFUqzg1EPiU88jeHNe0g81aPvvHbvHarQr3r9IA=="
+        "resolved": "10.0.0",
+        "contentHash": "bpeCq0IYmVLACyEUMzFIOQX+zZUElG1t+nu1lSxthe7B+1oNYking7b91305+jNB6iwojp9fqTY9O+Nh7ULQxg=="
       },
       "Microsoft.IO.RecyclableMemoryStream": {
         "type": "Transitive",
@@ -32,11 +32,11 @@
       },
       "Oxpecker.ViewEngine": {
         "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "VjdtK+Bwui0nPf/T4wVWhxgGMpyt3hEjaRxtFT3HKdzlr+JbH0C1qd/SxhKsuD90jM9EJObCgPrgBdPj576HVw==",
+        "resolved": "2.0.0",
+        "contentHash": "nGVqJHx+tMqjGZR860aT3+SzRVE5tGoJmiLnA0aEj8MSPj8mj/3wJe68pfSASTHGE5YszbPMzUWXPOB11atwvQ==",
         "dependencies": {
-          "FSharp.Core": "9.0.100",
-          "Microsoft.Extensions.ObjectPool": "9.0.0"
+          "FSharp.Core": "10.0.100",
+          "Microsoft.Extensions.ObjectPool": "10.0.0"
         }
       },
       "TypeShape": {
@@ -48,8 +48,8 @@
         }
       }
     },
-    "net9.0/linux-x64": {},
-    "net9.0/osx-x64": {},
-    "net9.0/win-x64": {}
+    "net10.0/linux-x64": {},
+    "net10.0/osx-x64": {},
+    "net10.0/win-x64": {}
   }
 }
